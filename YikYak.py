@@ -11,7 +11,7 @@ def main():
 	
 	
 	#Code pulled from YikYak.py terminal GUI. Because there is a problem with setting long and lat manually. Trying using google locations
-			# If first time using app, ask for preferred location
+	# If first time using app, ask for preferred location
 			
 	coordlocation = newLocation(geocoder)
 		# If location retrieval fails, ask user for coordinates
@@ -30,35 +30,43 @@ def main():
 	
 	#temp hard coded in for easy testing
 	#coordlocation = pk.Location("29.0355990", "-81.3034150")
-	#Stetson longitude and latitude is: Lat 29.0355990 Long -81.3034150
+	#longitude and latitude is: Lat 29.0355990 Long -81.3034150
 	
 	#Create 1 yak user that will get list of yaks. From here user selects the number yak that they want to me upvoted i amount of times
 	remoteyakker = pk.Yakker(None, coordlocation, True)
-	
-	
-	#getList of yaks and print
 	currentlist = remoteyakker.get_yaks()
 	read(currentlist)
+	print("If you would like to upvote hack enter U and if you would like to downvote to delete enter D")
+	choice = input()
+	
+	if choice.upper() == 'U':
+		#getList of yaks and print	
+		#input which yak to upvote hack
+		yakID=int(input("Please enter the yak number from above: \n"))
+		#input yikyak vote amount
+		print("Enter the number of Yik Yak upvotes")
+		numberOfVotes=int(input());
 	
 	
-	
-	#input which yak to upvote hack
-	yakID=int(input("Please enter the yak number from above: \n"))
-	#input yikyak vote amount
-	print("Enter the number of Yik Yak upvotes")
-	numberOfVotes=int(input());
-	
-	
-	#loop
-	for num in range (0,int(numberOfVotes)):
-		print(num);
-		#creating a new yak user object with location at input
-		remoteyakker = pk.Yakker(None, coordlocation, True)
-		#Prints unique user id 
-		print("User ID: ", remoteyakker.id, "\n")
-		#implement upvote
-		yaklist = remoteyakker.get_yaks()
-		upvoted = remoteyakker.upvote_yak(currentlist[yakID-1].message_id)
+		#loop
+		for num in range (0,int(numberOfVotes)):
+			print(num);
+			#creating a new yak user object with location at input
+			remoteyakker = pk.Yakker(None, coordlocation, True)
+			#Prints unique user id 
+			print("User ID: ", remoteyakker.id, "\n")
+			#implement upvote
+			#yaklist = remoteyakker.get_yaks()
+			upvoted = remoteyakker.upvote_yak(currentlist[yakID-1].message_id)
+	elif choice.upper() == 'D':
+		#input which yak to upvote hack
+		yakID=int(input("Please enter the yak number from above: \n"))
+		numberOfLikes=int(input("Enter the number of likes the Yak currently has:"))
+		for num in range(0,(numberOfLikes+10)):
+			remoteyakker = pk.Yakker(None, coordlocation, True)
+			print("User ID: ", remoteyakker.id, "\n")
+			#yaklist = remoteyakker.get_yaks()
+			remoteyakker.downvote_yak(currentlist[yakID-1].message_id)
 		
 def newLocation(geocoder, address=""):
 	# figure out location latitude and longitude based on address
