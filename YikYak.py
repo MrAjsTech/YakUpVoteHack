@@ -57,7 +57,14 @@ def main():
 			print("User ID: ", remoteyakker.id, "\n")
 			#implement upvote
 			#yaklist = remoteyakker.get_yaks()
-			upvoted = remoteyakker.upvote_yak(currentlist[yakID-1].message_id)
+			upvoted = remoteyakker.upvote_yak(currentlist[yakID-1].message_id)		
+			if upvoted:
+				print("\nUpvote successful :)")
+			else:
+				print("\nUpvote failed :(\t", end='')
+				print (posted.status_code, end='')
+				print (" ", end='')
+				print (requests.status_codes._codes[posted.status_code][0])
 	elif choice.upper() == 'D':
 		#input which yak to upvote hack
 		yakID=int(input("Please enter the yak number from above: \n"))
@@ -68,6 +75,7 @@ def main():
 			#yaklist = remoteyakker.get_yaks()
 			remoteyakker.downvote_yak(currentlist[yakID-1].message_id)
 		
+		#code pulled from YikYakTerminal
 def newLocation(geocoder, address=""):
 	# figure out location latitude and longitude based on address
 	if len(address) == 0:
@@ -101,8 +109,9 @@ def changeLocation(geocoder, address=""):
 		currentlatitude = input("Latitude: ")
 		currentlongitude = input("Longitude: ")
 		coordlocation = pk.Location(currentlatitude, currentlongitude)
-	return coordlocation		
-#read stream of yaks and print		
+	return coordlocation
+			
+#read stream of yaks and print	Pulled from YikYakTerminal 	
 def read(yaklist):
 	yakNum = 1
 	for yak in yaklist:
@@ -131,4 +140,3 @@ main()
 	
 	
 	
-main()
